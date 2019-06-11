@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
@@ -17,20 +16,22 @@ android {
     dataBinding {
         enabled = true
     }
-    realm {
-        syncEnabled = true;
-    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    androidExtensions {
+        experimental = true
+    }
 
 }
+
 def room_version = "1.1.1"
 def lifecycle_version = "1.1.1"
 def anko_version = "0.10.8"
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'

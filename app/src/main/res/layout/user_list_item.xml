@@ -5,6 +5,9 @@
         <variable
             name="user"
             type="co.com.ceiba.mobile.pruebadeingreso.data.models.User" />
+        <variable
+            name="showPost"
+            type="io.reactivex.subjects.PublishSubject" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -93,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:text="@string/btn_view_posts"
+                    android:onClick="@{()-> showPost.onNext(user)}"
                     android:textColor="@color/colorPrimary" />
 
             </RelativeLayout>

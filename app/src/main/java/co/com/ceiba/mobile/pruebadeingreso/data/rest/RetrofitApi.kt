@@ -19,6 +19,7 @@ object RetrofitApi {
     }
 
     fun getUserApi() = retrofit.create(UsersService::class.java)
+    fun getPostApi() = retrofit.create(PostService::class.java)
 
 
 }

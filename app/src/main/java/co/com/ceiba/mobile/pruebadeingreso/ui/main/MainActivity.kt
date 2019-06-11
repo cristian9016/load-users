@@ -9,11 +9,13 @@ import co.com.ceiba.mobile.pruebadeingreso.R
 import co.com.ceiba.mobile.pruebadeingreso.util.LifeDisposable
 import co.com.ceiba.mobile.pruebadeingreso.util.buildViewModel
 import co.com.ceiba.mobile.pruebadeingreso.ui.adapters.UserAdapter
+import co.com.ceiba.mobile.pruebadeingreso.ui.post.PostActivity
 import co.com.ceiba.mobile.pruebadeingreso.util.gone
 import co.com.ceiba.mobile.pruebadeingreso.util.visible
 import com.jakewharton.rxbinding2.widget.textChanges
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
@@ -24,20 +26,25 @@ class MainActivity : AppCompatActivity() {
     private val dis = LifeDisposable(this)
     private lateinit var dialog: ProgressDialog
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recyclerViewSearchResults.adapter = adapter
         recyclerViewSearchResults.layoutManager = layoutManager
         dialog = indeterminateProgressDialog(getString(R.string.generic_message_progress))
+
+        adapter.showPost
+                .subscribe {
+                    startActivity<PostActivity>(EXTRA_USER to it)
+                }
+
     }
 
     @SuppressLint("CheckResult")
     override fun onResume() {
         super.onResume()
         dialog.show()
-        layoutEmptyList.gone()
-
 
         editTextSearch.textChanges()
                 .skip(1)
@@ -54,9 +61,8 @@ class MainActivity : AppCompatActivity() {
                             } else getAllOnline()
                         },
                         {
-                            layoutEmptyList.visible()
                             dialog.hide()
-                            toast(it.message!!)
+                            toast(getString(R.string.generic_error))
                         }
                 )
     }
@@ -69,9 +75,8 @@ class MainActivity : AppCompatActivity() {
                                 dialog.hide()
                             },
                             {
-                                layoutEmptyList.visible()
                                 dialog.hide()
-                                toast(it.message!!)
+                                toast(getString(R.string.generic_error))
                             }
                     )
 
@@ -79,10 +84,11 @@ class MainActivity : AppCompatActivity() {
             dis add viewModel.searchUser("%$query%")
                     .subscribe {
                         adapter.data = it
-                        if (it.isNotEmpty()) layoutEmptyList.gone()
-                        else layoutEmptyList.visible()
-
+                        if (it.isEmpty()) adapter.data = listOf(0)
                     }
 
+    companion object {
+        const val EXTRA_USER = "user"
+    }
 
 }

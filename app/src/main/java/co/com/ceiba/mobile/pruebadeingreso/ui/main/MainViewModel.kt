@@ -1,34 +1,26 @@
 package co.com.ceiba.mobile.pruebadeingreso.ui.main
 
 import android.arch.lifecycle.ViewModel
-import co.com.ceiba.mobile.pruebadeingreso.data.db.AppDatabase.Companion.db
+import co.com.ceiba.mobile.pruebadeingreso.data.db.AppDatabase
 import co.com.ceiba.mobile.pruebadeingreso.data.db.dao.UserDao
-import co.com.ceiba.mobile.pruebadeingreso.data.models.User
 import co.com.ceiba.mobile.pruebadeingreso.data.rest.RetrofitApi
 import co.com.ceiba.mobile.pruebadeingreso.data.rest.UsersService
+import co.com.ceiba.mobile.pruebadeingreso.repository.UserRepository
 import co.com.ceiba.mobile.pruebadeingreso.util.applySchedulers
-import io.reactivex.Observable
 
 class MainViewModel : ViewModel() {
-    private val userDao: UserDao = db.userDao()
+
+    private val userDao: UserDao = AppDatabase.db.userDao()
     private val userService: UsersService = RetrofitApi.getUserApi()
+    private val repository = UserRepository(userDao, userService)
 
-    fun getAllOffline() = userDao.getAll()
+    fun getAllOffline() = repository.getAllOffline()
             .applySchedulers()
 
-    fun getAllOnline() = userService.getUsers()
-            .map {
-                insertDbRecords(it).subscribe()
-                it
-            }
+    fun getAllOnline() = repository.getAllOnline()
             .applySchedulers()
 
-    private fun insertDbRecords(users: List<User>) =
-            Observable.fromCallable {
-                userDao.insertAll(users)
-            }.applySchedulers()
-
-    fun searchUser(query:String) = userDao.findUser(query)
+    fun searchUser(query: String) = repository.searchUser(query)
             .applySchedulers()
 
 
