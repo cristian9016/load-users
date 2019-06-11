@@ -15,4 +15,7 @@ interface UserDao {
     @Insert
     fun insertAll(users: List<User>)
 
+    @Query("SELECT * from user WHERE name LIKE :query")
+    fun findUser(query:String) : Flowable<List<User>>
+
 }

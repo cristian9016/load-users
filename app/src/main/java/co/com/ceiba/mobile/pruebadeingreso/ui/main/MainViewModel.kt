@@ -28,5 +28,8 @@ class MainViewModel : ViewModel() {
                 userDao.insertAll(users)
             }.applySchedulers()
 
+    fun searchUser(query:String) = userDao.findUser(query)
+            .applySchedulers()
+
 
 }
