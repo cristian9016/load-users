@@ -1,4 +1,4 @@
-package co.com.ceiba.mobile.pruebadeingreso.exts
+package co.com.ceiba.mobile.pruebadeingreso.util
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver

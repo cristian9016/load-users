@@ -1,4 +1,4 @@
-package co.com.ceiba.mobile.pruebadeingreso.view.adapters
+package co.com.ceiba.mobile.pruebadeingreso.ui.adapters
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import co.com.ceiba.mobile.pruebadeingreso.R
 import co.com.ceiba.mobile.pruebadeingreso.data.models.User
 import co.com.ceiba.mobile.pruebadeingreso.databinding.UserListItemBinding
-import co.com.ceiba.mobile.pruebadeingreso.exts.inflate
+import co.com.ceiba.mobile.pruebadeingreso.util.inflate
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserHolder>() {
 

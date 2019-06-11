@@ -1,4 +1,4 @@
-package co.com.ceiba.mobile.pruebadeingreso.view.post
+package co.com.ceiba.mobile.pruebadeingreso.ui.post
 
 import android.app.Activity
 import android.os.Bundle

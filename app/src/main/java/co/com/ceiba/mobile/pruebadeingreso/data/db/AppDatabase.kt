@@ -14,7 +14,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         lateinit var db: AppDatabase
         fun init(context: Context) {
-            Room.databaseBuilder(context, AppDatabase::class.java, "ceiba-test")
+            db = Room.databaseBuilder(context, AppDatabase::class.java, "ceiba-test")
                     .build()
         }
     }

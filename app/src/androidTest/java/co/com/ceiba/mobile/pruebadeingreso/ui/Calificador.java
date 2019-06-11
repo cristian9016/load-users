@@ -1,4 +1,4 @@
-package co.com.ceiba.mobile.pruebadeingreso.view;
+package co.com.ceiba.mobile.pruebadeingreso.ui;
 
 
 import android.support.test.espresso.ViewInteraction;
@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import co.com.ceiba.mobile.pruebadeingreso.R;
-import co.com.ceiba.mobile.pruebadeingreso.view.main.MainActivity;
+import co.com.ceiba.mobile.pruebadeingreso.ui.main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
